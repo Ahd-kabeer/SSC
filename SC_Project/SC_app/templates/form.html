@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css">
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'index' %}">Hello world!</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav justify-content-center ms-auto mb-2 mb-lg-0 ">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'signup' %}">Register</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'signin' %}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'form' %}">Booking</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section id="wrapper">
+        <div id="pop-up">
+            {% if messages %}
+            {% for msg in messages %}
+            <div class="alert alert-dismissable alert-dismissible fade show" role="alert">
+                <strong>{{ msg }}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            
+            {% endfor %}
+             {% endif %}
+        </div>
+    </section>
+    <div class="container-fluid px-1 py-5 mx-auto">
+        <div class="row d-flex justify-content-center">
+            <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
+                <h3>Book hotel</h3>
+                <div class="card">
+                    <form class="form-card"  method="POST" action="{% url 'form' %}">
+                        {% csrf_token %}
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-sm-6 flex-column d-flex"> 
+                                <label class="form-control-label px-3">First name<span class="text-danger">*</span></label> 
+                                <input type="text" id="fname" name="fname" placeholder="Enter your first name" onblur="validate(1)">
+                             </div>
+                            <div class="form-group col-sm-6 flex-column d-flex"> 
+                                <label class="form-control-label px-3">Last name<span class="text-danger"> *</span></label> 
+                                <input type="text" id="lname" name="lname" placeholder="Enter your last name" onblur="validate(2)"> 
+                            </div>
+                        </div>
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-sm-6 flex-column d-flex"> 
+                                <label class="form-control-label px-3">Address<span class="text-danger"> *</span></label>
+                                 <input type="text" id="address" name="address" placeholder="" onblur="validate(3)"> 
+                            </div>
+                            <div class="form-group col-sm-6 flex-column d-flex"> 
+                                <label class="form-control-label px-3">Phone number<span class="text-danger"> *</span></label>
+                                 <input type="text" id="mob" name="mob" placeholder="" onblur="validate(4)"> </div>
+                        </div>
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-sm-6 flex-column d-flex"> 
+                                <label class="form-control-label px-3">Check_in<span class="text-danger"> *</span></label>
+                                 <input type="date" id="checkin" name="checkin" placeholder="" onblur="validate(5)" > 
+                            </div>
+                            <div class="form-group col-sm-6 flex-column d-flex"> 
+                                <label class="form-control-label px-3">Check_out<span class="text-danger"> *</span></label>
+                                 <input type="date" id="checkout" name="checkout" placeholder="" onblur="validate(6)"> </div>
+                        </div>
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-sm-6 flex-column d-flex"> 
+                                <label class="form-control-label px-3">Number of visitors<span class="text-danger"> *</span></label>
+                                <select class="form-control form-control-lg" id="NOV" name="NOV" onblur="validate(7)">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                  </select> 
+                            </div>
+                            <div class="form-group col-sm-6 flex-column d-flex"> 
+                                <label class="form-control-label px-3">Bed tyoe<span class="text-danger"> *</span></label>
+                                <select class="form-control form-control-lg" id="BT" name="BT" onblur="validate(8)">
+                                    <option>single</option>
+                                    <option>double</option>
+                                    <option>queen size</option>
+                                    <option>king size</option>
+                                    <option>king +</option>
+                                  </select> 
+                            </div>
+                        </div>
+                        
+                        <div class="row justify-content-center m-4">
+                            <div class="form-group col-sm-6"> <button type="submit" class="btn-block btn-primary">Book now</button> </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/form.js' %}"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</body>
+</html>
+
+
